@@ -23,42 +23,44 @@
       <img src='./assets/images/icon-copy.svg' alt="copy to clipboard icon"/>   
     </div>
     <form id="myform" onsubmit="handleSubmit(event)">
-      <div class="length-card">
-        <div class="range-card">
+      <div class="char-length-card">
+        <div class="char-length-labels">
           <h2>
             Character Length
           </h2>
           <label for="char-length" id="lengthlabel" class="text-headingM">9</label>
-        </div>        
-        <input type="range" id="charlength" name="char-length" min="1" max="20" value="9"
-        oninput="lengthlabel.innerText = this.value"/>
+        </div>
+        <div class="custom-range-container">
+          <input type="range" id="charlength" name="char-length" class="custom-range" min="1" max="20" value="9"
+          oninput="lengthlabel.innerText = this.value"/>
+        </div>   
       </div>
       <div class="option-card">
         <div class="input-group">
-          <input type="checkbox" name="uppercase" />
-          <span></span>
-          <label for="uppercase">
+          <label for="ckb-uppercase">
+            <input type="checkbox" name="uppercase" id="ckb-uppercase" />
+            <span class="checkmark"></span> 
             Include Uppercase Letters
           </label>
         </div>
         <div class="input-group">
-          <input type="checkbox" name="lowercase" />
-          <span></span>
-          <label for="lowercase">
+          <label for="ckb-lowercase">
+            <input type="checkbox" name="lowercase" id="ckb-lowercase" />
+            <span class="checkmark"></span> 
             Include Lowercase Letters
           </label>
         </div>
         <div class="input-group">
-          <input type="checkbox" name="number" />
-          <span></span>
-          <label for="number">
+          <label for="ckb-number">
+            <input type="checkbox" name="number" id="ckb-number"/>
+            <span class="checkmark"></span> 
             Include Numbers
           </label>
         </div>
         <div class="input-group">
-          <input type="checkbox" name="symbols" />
-          <span></span>
-          <label for="symbols">
+          <label for="ckb-symbols">
+            <input type="checkbox" name="symbols" id="ckb-symbols"/>
+            <span class="checkmark"></span> 
             Include Symbols
           </label>
         </div>

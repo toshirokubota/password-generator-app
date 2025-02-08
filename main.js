@@ -2,11 +2,14 @@
 const myform = document.getElementById('myform');
 const outarea = document.getElementById('generated');
 const strength = document.getElementById('strength-summary');
-const bars = Array.from(document.querySelectorAll('.bars > .bar'));
+//const bars = Array.from(document.querySelectorAll('.bars > .bar'));
+const bars = document.querySelector('.bars');
 const lowerAlpha = 'abcdefghijklmnopqrstuvwxyz';
 const upperAlpha = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 const numeral = '0123456789';
 const symbols = '!@#$%^&*()-=+_[]?';
+
+//form submission
 const handleSubmit = (e) => {
   e.preventDefault();
 
@@ -37,35 +40,40 @@ const handleSubmit = (e) => {
     }
     score = strengthScore(nlength, chars.length);
   }
-  else password = ' '; //just to fill the DIV
+  else {
+    password = 'invalid';
+  }
   console.log(password, score);
 
   outarea.innerText = password;
-  if(score < 30) {
-    strength.innerText = 'too weak!';
-    bars[0].setAttribute('data-color', 'red');
-    bars[1].setAttribute('data-color', 'none');
-    bars[2].setAttribute('data-color', 'none');
-    bars[3].setAttribute('data-color', 'none');
+  let strength_type = 'invalid'
+  if(score < 50) {
+    strength_type = 'too weak!';
+    // bars[0].setAttribute('data-color', 'red');
+    // bars[1].setAttribute('data-color', 'none');
+    // bars[2].setAttribute('data-color', 'none');
+    // bars[3].setAttribute('data-color', 'none');
   } else if(score < 100) {
-    strength.innerText = 'weak';
-    bars[0].setAttribute('data-color', 'orange');
-    bars[1].setAttribute('data-color', 'orange');
-    bars[2].setAttribute('data-color', 'none');
-    bars[3].setAttribute('data-color', 'none');
+    strength_type = 'weak';
+    // bars[0].setAttribute('data-color', 'orange');
+    // bars[1].setAttribute('data-color', 'orange');
+    // bars[2].setAttribute('data-color', 'none');
+    // bars[3].setAttribute('data-color', 'none');
   } else if(score < 180) {
-    strength.innerText = 'medium';
-    bars[0].setAttribute('data-color', 'yellow');
-    bars[1].setAttribute('data-color', 'yellow');
-    bars[2].setAttribute('data-color', 'yellow');
-    bars[3].setAttribute('data-color', 'none');
+    strength_type = 'medium';
+    // bars[0].setAttribute('data-color', 'yellow');
+    // bars[1].setAttribute('data-color', 'yellow');
+    // bars[2].setAttribute('data-color', 'yellow');
+    // bars[3].setAttribute('data-color', 'none');
   } else {
-    strength.innerText = 'strong';
-    bars[0].setAttribute('data-color', 'green');
-    bars[1].setAttribute('data-color', 'green');
-    bars[2].setAttribute('data-color', 'green');
-    bars[3].setAttribute('data-color', 'green');
+    strength_type = 'strong';
+    // bars[0].setAttribute('data-color', 'green');
+    // bars[1].setAttribute('data-color', 'green');
+    // bars[2].setAttribute('data-color', 'green');
+    // bars[3].setAttribute('data-color', 'green');
   }
+  strength.innerHTML = strength_type;
+  bars.setAttribute('data-strength', strength_type);
 }
 
 const strengthScore = (length, N) => {
@@ -81,3 +89,21 @@ copyIcon.addEventListener('click', ()=> {
     console.log(outarea.innerText);
 });
 
+//range input callback
+const rangeInput = document.querySelector('.custom-range'); 
+const rangeContainer = document.querySelector('.custom-range-container'); 
+
+const updateSlider = () => {
+  const value = rangeInput.value; 
+  const max = rangeInput.max; 
+  const percentage = (value / max) * 100; 
+  rangeContainer.style.setProperty('--track-progress', `${percentage}%`);
+  console.log(percentage); 
+}
+
+rangeInput.addEventListener('load', updateSlider);
+
+rangeInput.addEventListener('input', () => 
+  { 
+    updateSlider();
+  }); 
