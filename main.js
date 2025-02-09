@@ -2,7 +2,6 @@
 const myform = document.getElementById('myform');
 const outarea = document.getElementById('generated');
 const strength = document.getElementById('strength-summary-value');
-//const bars = Array.from(document.querySelectorAll('.bars > .bar'));
 const bars = document.querySelector('.bars');
 const lowerAlpha = 'abcdefghijklmnopqrstuvwxyz';
 const upperAlpha = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -13,7 +12,6 @@ const symbols = '!@#$%^&*()-=+_[]?';
 const handleSubmit = (e) => {
   e.preventDefault();
 
-  let isValid = true; // form is valid
   let fdata = new FormData(myform);
   const data = Object.fromEntries(fdata);
   
@@ -60,38 +58,42 @@ const handleSubmit = (e) => {
   bars.setAttribute('data-strength', strength_type);
 }
 
+//calculate the pathword strength score
 const strengthScore = (length, N) => {
   return N * Math.log(length);
 }
 
 myform.addEventListener('submit', handleSubmit);
 
+//handler for 'copy to clipboard'
 const copyIcon = document.querySelector('.generated-card > img');
-const popup = document.getElementById("popup");
 copyIcon.addEventListener('click', ()=> {
      // Copy the text inside the text field
     navigator.clipboard.writeText(outarea.innerText);
     console.log(outarea.innerText);
-    //show pop up
-    popup.classList.add("show");
   }
 );
+//keydown handler for 'copy to clipboard'
+copyIcon.addEventListener('keydown', (event)=>{
+  if(event.code == "Enter") {
+    navigator.clipboard.writeText(outarea.innerText);
+    copyIcon.classList.toggle('active');
+    setTimeout(()=> {
+      copyIcon.classList.toggle('active');
+    }, 250);
+  }
+});
 
 //range input callback
 const rangeInput = document.querySelector('.custom-range'); 
 const rangeContainer = document.querySelector('.custom-range-container'); 
 
-const updateSlider = () => {
+rangeInput.addEventListener('input', () => { 
   const value = rangeInput.value; 
   const max = rangeInput.max; 
   const percentage = (value / max) * 100; 
   rangeContainer.style.setProperty('--track-progress', `${percentage}%`);
   console.log(percentage); 
-}
+}); 
 
-rangeInput.addEventListener('load', updateSlider);
 
-rangeInput.addEventListener('input', () => 
-  { 
-    updateSlider();
-  }); 
