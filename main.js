@@ -1,7 +1,7 @@
 
 const myform = document.getElementById('myform');
 const outarea = document.getElementById('generated');
-const strength = document.getElementById('strength-summary');
+const strength = document.getElementById('strength-summary-value');
 //const bars = Array.from(document.querySelectorAll('.bars > .bar'));
 const bars = document.querySelector('.bars');
 const lowerAlpha = 'abcdefghijklmnopqrstuvwxyz';
@@ -49,28 +49,12 @@ const handleSubmit = (e) => {
   let strength_type = 'invalid'
   if(score < 50) {
     strength_type = 'too weak!';
-    // bars[0].setAttribute('data-color', 'red');
-    // bars[1].setAttribute('data-color', 'none');
-    // bars[2].setAttribute('data-color', 'none');
-    // bars[3].setAttribute('data-color', 'none');
   } else if(score < 100) {
     strength_type = 'weak';
-    // bars[0].setAttribute('data-color', 'orange');
-    // bars[1].setAttribute('data-color', 'orange');
-    // bars[2].setAttribute('data-color', 'none');
-    // bars[3].setAttribute('data-color', 'none');
   } else if(score < 180) {
     strength_type = 'medium';
-    // bars[0].setAttribute('data-color', 'yellow');
-    // bars[1].setAttribute('data-color', 'yellow');
-    // bars[2].setAttribute('data-color', 'yellow');
-    // bars[3].setAttribute('data-color', 'none');
   } else {
     strength_type = 'strong';
-    // bars[0].setAttribute('data-color', 'green');
-    // bars[1].setAttribute('data-color', 'green');
-    // bars[2].setAttribute('data-color', 'green');
-    // bars[3].setAttribute('data-color', 'green');
   }
   strength.innerHTML = strength_type;
   bars.setAttribute('data-strength', strength_type);
@@ -83,11 +67,15 @@ const strengthScore = (length, N) => {
 myform.addEventListener('submit', handleSubmit);
 
 const copyIcon = document.querySelector('.generated-card > img');
+const popup = document.getElementById("popup");
 copyIcon.addEventListener('click', ()=> {
      // Copy the text inside the text field
     navigator.clipboard.writeText(outarea.innerText);
     console.log(outarea.innerText);
-});
+    //show pop up
+    popup.classList.add("show");
+  }
+);
 
 //range input callback
 const rangeInput = document.querySelector('.custom-range'); 
